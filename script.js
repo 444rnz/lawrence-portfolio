@@ -1,38 +1,38 @@
 document.addEventListener("DOMContentLoaded", () => {
     const header = document.querySelector(".header");
     const menuButton = document.getElementById("menu-icon");
-    const menuButtonIcon = menuButton ? menuButton.querySelector("i") : null;
+    const menuIcon = menuButton ? menuButton.querySelector("i") : null;
     const navLinks = document.querySelector(".nav-links");
     const navItems = document.querySelectorAll(".nav-link");
     const sections = document.querySelectorAll("main section");
-    const year = document.getElementById("year");
 
-    const themeToggle = document.getElementById("theme-toggle");
-    const themeToggleIcon = themeToggle ? themeToggle.querySelector("i") : null;
+    const themeButton = document.getElementById("theme-toggle");
+    const themeIcon = themeButton ? themeButton.querySelector("i") : null;
 
     const smokeCursor = document.querySelector(".smoke-cursor");
+    const year = document.getElementById("year");
 
     // Footer year
     if (year) {
         year.textContent = new Date().getFullYear();
     }
 
-    // Dark / light mode
+    // Dark and light mode
     function setTheme(theme) {
         const isLightMode = theme === "light";
 
         document.body.classList.toggle("light-mode", isLightMode);
 
-        if (themeToggle && themeToggleIcon) {
-            themeToggleIcon.classList.toggle("fa-sun", !isLightMode);
-            themeToggleIcon.classList.toggle("fa-moon", isLightMode);
+        if (themeButton && themeIcon) {
+            themeIcon.classList.toggle("fa-sun", !isLightMode);
+            themeIcon.classList.toggle("fa-moon", isLightMode);
 
-            themeToggle.setAttribute(
+            themeButton.setAttribute(
                 "aria-label",
                 isLightMode ? "Switch to dark mode" : "Switch to light mode"
             );
 
-            themeToggle.setAttribute(
+            themeButton.setAttribute(
                 "title",
                 isLightMode ? "Switch to dark mode" : "Switch to light mode"
             );
@@ -44,8 +44,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const savedTheme = localStorage.getItem("portfolio-theme") || "dark";
     setTheme(savedTheme);
 
-    if (themeToggle) {
-        themeToggle.addEventListener("click", () => {
+    if (themeButton) {
+        themeButton.addEventListener("click", () => {
             const nextTheme = document.body.classList.contains("light-mode")
                 ? "dark"
                 : "light";
@@ -55,93 +55,84 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Mobile menu
-    function closeMobileMenu() {
-        if (!navLinks || !menuButton || !menuButtonIcon) {
+    function closeMenu() {
+        if (!navLinks || !menuButton || !menuIcon) {
             return;
         }
 
         navLinks.classList.remove("active");
-
         menuButton.setAttribute("aria-expanded", "false");
-        menuButton.setAttribute("aria-label", "Open navigation menu");
 
-        menuButtonIcon.classList.remove("fa-xmark");
-        menuButtonIcon.classList.add("fa-bars-staggered");
+        menuIcon.classList.remove("fa-xmark");
+        menuIcon.classList.add("fa-bars");
     }
 
-    if (menuButton && navLinks && menuButtonIcon) {
+    if (menuButton && navLinks && menuIcon) {
         menuButton.addEventListener("click", () => {
             const isOpen = navLinks.classList.toggle("active");
 
             menuButton.setAttribute("aria-expanded", String(isOpen));
 
-            menuButtonIcon.classList.toggle("fa-bars-staggered", !isOpen);
-            menuButtonIcon.classList.toggle("fa-xmark", isOpen);
-
-            menuButton.setAttribute(
-                "aria-label",
-                isOpen ? "Close navigation menu" : "Open navigation menu"
-            );
+            menuIcon.classList.toggle("fa-bars", !isOpen);
+            menuIcon.classList.toggle("fa-xmark", isOpen);
         });
 
-        navItems.forEach((navItem) => {
-            navItem.addEventListener("click", closeMobileMenu);
+        navItems.forEach((link) => {
+            link.addEventListener("click", closeMenu);
         });
     }
 
-    // Header scroll appearance
-    function updateHeaderStyle() {
+    // Header scroll animation
+    function updateHeader() {
         if (header) {
             header.classList.toggle("scrolled", window.scrollY > 40);
         }
     }
 
-    // Active navigation section
+    // Active navigation link
     function updateActiveNavigation() {
-        let activeSection = "";
+        let currentId = "";
 
         sections.forEach((section) => {
             const top = section.offsetTop - 170;
             const bottom = top + section.offsetHeight;
 
             if (window.scrollY >= top && window.scrollY < bottom) {
-                activeSection = section.id;
+                currentId = section.id;
             }
         });
 
-        navItems.forEach((navItem) => {
-            navItem.classList.toggle(
+        navItems.forEach((link) => {
+            link.classList.toggle(
                 "active",
-                navItem.getAttribute("href") === `#${activeSection}`
+                link.getAttribute("href") === `#${currentId}`
             );
         });
     }
 
-    // Smoky mouse pointer effect
-    const hasMousePointer = window.matchMedia(
+    // Visible smoke cursor effect for desktop/laptop only
+    const hasMouse = window.matchMedia(
         "(hover: hover) and (pointer: fine)"
     ).matches;
 
-    if (smokeCursor && hasMousePointer) {
-        let lastParticleTime = 0;
-        let lastX = 0;
-        let lastY = 0;
+    if (smokeCursor && hasMouse) {
+        let lastTime = 0;
+        let previousX = 0;
+        let previousY = 0;
 
         function createSmoke(x, y, speed) {
             const particle = document.createElement("span");
-            const size = Math.min(66, Math.max(30, 30 + speed * 0.55));
+            const size = Math.min(68, Math.max(32, 32 + speed * 0.6));
 
             particle.className = "smoke-particle";
-
             particle.style.left = `${x + (Math.random() - 0.5) * 20}px`;
             particle.style.top = `${y + (Math.random() - 0.5) * 20}px`;
-
             particle.style.width = `${size}px`;
             particle.style.height = `${size}px`;
 
             particle.style.setProperty(
-                "--smoke-drift-x",
-                `${(Math.random() - 0.5) * 90}px`
+                "--drift-x",
+                `${(Math.random() - 0.5) * 95}px`
             );
 
             document.body.appendChild(particle);
@@ -160,12 +151,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             spark.style.setProperty(
                 "--spark-x",
-                `${(Math.random() - 0.5) * 55}px`
+                `${(Math.random() - 0.5) * 58}px`
             );
 
             spark.style.setProperty(
                 "--spark-y",
-                `${(Math.random() - 0.5) * 55}px`
+                `${(Math.random() - 0.5) * 58}px`
             );
 
             document.body.appendChild(spark);
@@ -183,52 +174,43 @@ document.addEventListener("DOMContentLoaded", () => {
             smokeCursor.style.top = `${y}px`;
             smokeCursor.style.opacity = "1";
 
-            const movementSpeed = Math.hypot(x - lastX, y - lastY);
-            const currentTime = performance.now();
+            const speed = Math.hypot(x - previousX, y - previousY);
+            const now = performance.now();
 
-            if (currentTime - lastParticleTime > 24) {
-                createSmoke(x, y, movementSpeed);
+            if (now - lastTime > 24) {
+                createSmoke(x, y, speed);
 
-                if (movementSpeed > 6) {
-                    createSmoke(x - 8, y - 8, movementSpeed);
+                if (speed > 6) {
+                    createSmoke(x - 8, y - 8, speed);
                 }
 
                 if (Math.random() > 0.35) {
                     createSpark(x, y);
                 }
 
-                lastParticleTime = currentTime;
+                lastTime = now;
             }
 
-            lastX = x;
-            lastY = y;
+            previousX = x;
+            previousY = y;
         });
 
         document.addEventListener("mouseleave", () => {
             smokeCursor.style.opacity = "0";
         });
-
-        document.addEventListener("mouseenter", () => {
-            smokeCursor.style.opacity = "1";
-        });
     }
 
-    // Reset mobile menu on wider screens
     window.addEventListener("resize", () => {
-        if (
-            window.innerWidth > 800 &&
-            navLinks &&
-            navLinks.classList.contains("active")
-        ) {
-            closeMobileMenu();
+        if (window.innerWidth > 800) {
+            closeMenu();
         }
     });
 
     window.addEventListener("scroll", () => {
-        updateHeaderStyle();
+        updateHeader();
         updateActiveNavigation();
     });
 
-    updateHeaderStyle();
+    updateHeader();
     updateActiveNavigation();
 });
