@@ -1,0 +1,2163 @@
+:root {
+    --career-bg: #060606;
+    --gold: #d4af37;
+    --gold-light: #f7dc72;
+    --gold-dark: #8e6b18;
+    --silver: #d8d8d8;
+    --silver-light: #f4f4f4;
+    --silver-dark: #909090;
+    --career-text: #eeeeee;
+    --career-muted: #b7b7b7;
+    --career-border: rgba(216, 216, 216, 0.18);
+    --gold-gradient: linear-gradient(
+        135deg,
+        #8e6b18,
+        #d4af37 42%,
+        #f7dc72 64%,
+        #ad8228
+    );
+    --silver-gradient: linear-gradient(
+        135deg,
+        #787878,
+        #f1f1f1 42%,
+        #a1a1a1 70%,
+        #eeeeee
+    );
+    --shadow: 0 20px 50px rgba(0, 0, 0, 0.52);
+    --radius: 1.4rem;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #060606;
+    font-family: "Poppins", sans-serif;
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button,
+input,
+textarea {
+    font: inherit;
+}
+
+button {
+    border: none;
+}
+
+ul {
+    list-style: none;
+}
+
+.portfolio-view {
+    display: none;
+}
+
+.portfolio-view.active-view {
+    display: block;
+}
+
+/* ==============================
+   CAREER MODE
+   ============================== */
+
+#career-portfolio {
+    color: var(--career-text);
+    background:
+        radial-gradient(circle at 12% 10%, rgba(212, 175, 55, 0.1), transparent 28%),
+        radial-gradient(circle at 90% 80%, rgba(216, 216, 216, 0.05), transparent 26%),
+        var(--career-bg);
+}
+
+#career-portfolio section {
+    min-height: 100vh;
+    padding: 9rem 12% 6rem;
+    scroll-margin-top: 6rem;
+}
+
+.career-section-heading {
+    max-width: 700px;
+    margin: 0 auto 4rem;
+    text-align: center;
+}
+
+.career-section-heading span {
+    display: inline-block;
+    color: var(--gold-light);
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.18rem;
+    text-transform: uppercase;
+}
+
+.career-section-heading h2 {
+    margin-top: 0.55rem;
+    color: transparent;
+    background: var(--silver-gradient);
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-size: clamp(2.3rem, 5vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.career-section-heading p {
+    margin-top: 1rem;
+    color: var(--career-muted);
+    font-size: 0.95rem;
+    line-height: 1.8;
+}
+
+.career-header {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(1280px, calc(100% - 2rem));
+    min-height: 4.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.65rem 1rem 0.65rem 1.5rem;
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    border-radius: 3rem;
+    background: rgba(6, 6, 6, 0.91);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 0 12px 38px rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    transition: 0.3s ease;
+}
+
+.career-header.scrolled {
+    top: 0.55rem;
+    min-height: 4rem;
+    border-color: rgba(212, 175, 55, 0.68);
+}
+
+.career-logo {
+    font-size: 1.08rem;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.career-logo span {
+    color: transparent;
+    background: var(--gold-gradient);
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+
+.career-navbar {
+    margin: 0 auto;
+}
+
+.career-nav-links {
+    display: flex;
+    gap: 1.1rem;
+}
+
+.career-nav-link {
+    position: relative;
+    color: rgba(244, 244, 244, 0.8);
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: color 0.25s ease;
+}
+
+.career-nav-link::after {
+    position: absolute;
+    content: "";
+    left: 0;
+    bottom: -0.48rem;
+    width: 0;
+    height: 2px;
+    border-radius: 1rem;
+    background: var(--gold-gradient);
+    transition: width 0.25s ease;
+}
+
+.career-nav-link:hover,
+.career-nav-link.active {
+    color: var(--gold-light);
+}
+
+.career-nav-link:hover::after,
+.career-nav-link.active::after {
+    width: 100%;
+}
+
+.career-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.career-fashion-mode,
+.career-linkedin-button,
+.career-theme-button,
+.career-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 3rem;
+    font-family: inherit;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.career-fashion-mode {
+    padding: 0.68rem 0.8rem;
+    border: 1px solid rgba(216, 216, 216, 0.38);
+    color: var(--silver-light);
+    background: rgba(255, 255, 255, 0.06);
+    font-size: 0.72rem;
+}
+
+.career-fashion-mode:hover {
+    border-color: var(--gold);
+    color: #151515;
+    background: var(--gold-gradient);
+    transform: translateY(-2px);
+}
+
+.career-linkedin-button {
+    padding: 0.68rem 0.8rem;
+    border: 1px solid rgba(247, 220, 114, 0.8);
+    color: #141414;
+    background: var(--gold-gradient);
+    font-size: 0.72rem;
+}
+
+.career-linkedin-button:hover,
+.career-primary-button:hover {
+    box-shadow: 0 10px 24px rgba(212, 175, 55, 0.32);
+    transform: translateY(-3px);
+}
+
+.career-theme-button {
+    width: 2.35rem;
+    height: 2.35rem;
+    border: 1px solid rgba(247, 220, 114, 0.8);
+    color: #151515;
+    background: var(--gold-gradient);
+    font-size: 0.92rem;
+}
+
+.career-theme-button:hover {
+    transform: rotate(18deg) scale(1.06);
+}
+
+.career-menu-button {
+    display: none;
+    color: var(--silver-light);
+    background: transparent;
+    font-size: 1.35rem;
+    cursor: pointer;
+}
+
+.career-about {
+    display: flex;
+    align-items: center;
+    background:
+        radial-gradient(circle at 12% 25%, rgba(212, 175, 55, 0.16), transparent 30%),
+        radial-gradient(circle at 88% 75%, rgba(216, 216, 216, 0.07), transparent 27%),
+        linear-gradient(145deg, #101010, #050505 65%);
+}
+
+.career-about-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: minmax(240px, 0.8fr) minmax(320px, 1.2fr);
+    align-items: center;
+    gap: clamp(3rem, 9vw, 9rem);
+}
+
+.career-profile-area {
+    position: relative;
+    width: min(100%, 380px);
+    margin: auto;
+}
+
+.career-profile-area::before {
+    position: absolute;
+    content: "";
+    inset: -1.2rem;
+    z-index: -1;
+    border-radius: 50%;
+    background: var(--gold-gradient);
+    filter: drop-shadow(0 12px 25px rgba(212, 175, 55, 0.25));
+}
+
+.career-profile-image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border: 8px solid #171717;
+    border-radius: 50%;
+    box-shadow: 0 22px 50px rgba(0, 0, 0, 0.65);
+}
+
+.career-info-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.career-intro-label {
+    color: var(--silver-dark);
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.career-info-box h1 {
+    margin-top: 0.2rem;
+    color: transparent;
+    background: var(--silver-gradient);
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-size: clamp(2.8rem, 6vw, 5.2rem);
+    font-weight: 800;
+    letter-spacing: -0.18rem;
+    line-height: 1;
+}
+
+.career-info-box h2 {
+    margin-top: 1rem;
+    color: transparent;
+    background: var(--gold-gradient);
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-size: clamp(1.05rem, 2vw, 1.5rem);
+    font-weight: 700;
+}
+
+.career-about-description {
+    max-width: 640px;
+    margin: 1.5rem 0;
+    color: var(--career-muted);
+    line-height: 1.85;
+}
+
+.career-button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+}
+
+.career-button {
+    padding: 0.8rem 1.2rem;
+    border: 1px solid rgba(216, 216, 216, 0.5);
+    font-size: 0.9rem;
+}
+
+.career-primary-button {
+    border-color: rgba(247, 220, 114, 0.85);
+    color: #151515;
+    background: var(--gold-gradient);
+}
+
+.career-secondary-button {
+    color: var(--silver-light);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.career-secondary-button:hover {
+    color: #141414;
+    background: var(--silver-gradient);
+    transform: translateY(-3px);
+}
+
+.career-socials {
+    display: flex;
+    gap: 0.85rem;
+    margin-top: 1.6rem;
+}
+
+.career-socials a {
+    width: 2.7rem;
+    height: 2.7rem;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(216, 216, 216, 0.5);
+    border-radius: 50%;
+    color: var(--silver-light);
+    background: rgba(255, 255, 255, 0.04);
+    transition: 0.25s ease;
+}
+
+.career-socials a:hover {
+    border-color: var(--gold-light);
+    color: #141414;
+    background: var(--gold-gradient);
+    transform: translateY(-4px) scale(1.05);
+}
+
+.career-experience {
+    background: linear-gradient(145deg, #080808, #111111);
+}
+
+.career-experience-layout {
+    max-width: 1160px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1.25fr 0.75fr;
+    align-items: center;
+    gap: 3rem;
+}
+
+.career-experience-card,
+.career-skill-card,
+.career-contact-item,
+.career-contact-form {
+    border: 1px solid var(--career-border);
+    background: linear-gradient(145deg, #1a1a1a, #0c0c0c);
+    box-shadow: var(--shadow);
+}
+
+.career-experience-card {
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    border-top-color: rgba(212, 175, 55, 0.65);
+    border-radius: var(--radius);
+}
+
+.career-experience-top {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.career-icon-box {
+    width: 3.4rem;
+    height: 3.4rem;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    border-radius: 0.95rem;
+    color: #161616;
+    background: var(--gold-gradient);
+    font-size: 1.3rem;
+}
+
+.career-experience-top h3 {
+    color: var(--silver-light);
+    font-size: 1.35rem;
+}
+
+.career-company-name {
+    margin-top: 0.15rem;
+    color: var(--gold-light);
+    font-size: 0.92rem;
+    font-weight: 700;
+}
+
+.career-experience-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem 1.4rem;
+    margin: 1.7rem 0 1.3rem;
+    color: var(--silver-dark);
+    font-size: 0.85rem;
+}
+
+.career-experience-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.career-experience-meta i {
+    color: var(--gold);
+}
+
+.career-experience-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.career-experience-list li {
+    position: relative;
+    padding-left: 1.5rem;
+    color: var(--career-muted);
+    font-size: 0.93rem;
+    line-height: 1.8;
+}
+
+.career-experience-list li::before {
+    position: absolute;
+    content: "◆";
+    top: 0.4rem;
+    left: 0;
+    color: var(--gold);
+    font-size: 0.62rem;
+}
+
+.career-experience-visual {
+    position: relative;
+    min-height: 350px;
+    display: grid;
+    place-items: center;
+}
+
+.career-visual-circle {
+    width: min(100%, 260px);
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    background: #101010;
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.62);
+    text-align: center;
+}
+
+.career-visual-circle > i {
+    color: var(--gold-light);
+    font-size: 3rem;
+}
+
+.career-visual-circle h3 {
+    margin-top: 0.85rem;
+    font-size: 1.4rem;
+}
+
+.career-visual-circle p {
+    margin-top: 0.25rem;
+    color: var(--silver-dark);
+    font-size: 0.72rem;
+}
+
+.career-floating-icon {
+    position: absolute;
+    width: 3.7rem;
+    height: 3.7rem;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--gold-light);
+    border-radius: 50%;
+    color: #151515;
+    background: var(--gold-gradient);
+    font-size: 1.25rem;
+}
+
+.career-floating-one {
+    top: 3%;
+    left: 3%;
+}
+
+.career-floating-two {
+    top: 42%;
+    right: 0;
+}
+
+.career-floating-three {
+    bottom: 2%;
+    left: 10%;
+}
+
+.career-skills {
+    background: #0c0c0c;
+}
+
+.career-skills-grid,
+.career-projects-grid {
+    max-width: 1160px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+}
+
+.career-skill-card {
+    padding: 1.8rem 1.4rem;
+    border-radius: 1.2rem;
+    transition: 0.25s ease;
+}
+
+.career-skill-card:hover,
+.career-project-card:hover {
+    border-color: rgba(212, 175, 55, 0.72);
+    box-shadow: 0 12px 30px rgba(212, 175, 55, 0.18);
+    transform: translateY(-7px);
+}
+
+.career-skill-card .career-icon-box {
+    margin-bottom: 1.2rem;
+}
+
+.career-skill-card h3 {
+    color: var(--silver-light);
+    font-size: 1.1rem;
+}
+
+.career-skill-card p {
+    margin-top: 0.7rem;
+    color: var(--career-muted);
+    font-size: 0.88rem;
+    line-height: 1.75;
+}
+
+.career-projects {
+    background: linear-gradient(145deg, #101010, #050505);
+}
+
+.career-project-card {
+    min-height: 365px;
+    display: flex;
+    flex-direction: column;
+    padding: 1.8rem 1.4rem;
+    border: 1px solid var(--career-border);
+    border-radius: 1.3rem;
+    transition: 0.25s ease;
+}
+
+.career-project-dark {
+    color: var(--silver-light);
+    background: linear-gradient(145deg, #202020, #070707);
+}
+
+.career-project-silver {
+    color: #181818;
+    background: var(--silver-gradient);
+}
+
+.career-project-gold {
+    color: #1c1c1c;
+    background: var(--gold-gradient);
+}
+
+.career-dark-icon {
+    color: var(--gold-light);
+    background: #151515;
+}
+
+.career-brown-icon {
+    color: var(--silver-light);
+    background: #503e12;
+}
+
+.career-project-label {
+    margin: 1.2rem 0 0.65rem;
+    color: var(--gold-light);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.08rem;
+    text-transform: uppercase;
+}
+
+.career-label-dark {
+    color: #725500;
+}
+
+.career-project-card h3 {
+    font-size: 1.3rem;
+    line-height: 1.35;
+}
+
+.career-project-text {
+    margin-top: 1rem;
+    color: rgba(244, 244, 244, 0.72);
+    font-size: 0.87rem;
+    line-height: 1.75;
+}
+
+.career-project-silver .career-project-text,
+.career-project-gold .career-project-text {
+    color: #444444;
+}
+
+.career-school-name {
+    margin-top: 0.55rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.career-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: auto;
+    padding-top: 1.4rem;
+}
+
+.career-tags span {
+    padding: 0.3rem 0.6rem;
+    border: 1px solid rgba(247, 220, 114, 0.5);
+    border-radius: 2rem;
+    color: var(--gold-light);
+    font-size: 0.67rem;
+    font-weight: 700;
+}
+
+.career-achievement {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: auto;
+    padding-top: 1.4rem;
+    color: #5d4706;
+    font-size: 0.85rem;
+    font-weight: 800;
+}
+
+.career-contact {
+    background: #060606;
+}
+
+.career-contact-layout {
+    max-width: 1060px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    align-items: start;
+    gap: 2rem;
+}
+
+.career-contact-details {
+    display: grid;
+    gap: 0.85rem;
+}
+
+.career-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    transition: 0.25s ease;
+}
+
+a.career-contact-item:hover {
+    border-color: rgba(212, 175, 55, 0.72);
+    transform: translateX(5px);
+}
+
+.career-contact-item .career-icon-box {
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 0.75rem;
+    font-size: 1.05rem;
+}
+
+.career-contact-item span {
+    color: var(--silver-dark);
+    font-size: 0.74rem;
+    font-weight: 700;
+}
+
+.career-contact-item p {
+    margin-top: 0.12rem;
+    color: var(--silver-light);
+    font-size: 0.83rem;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.career-contact-form {
+    padding: 1.7rem;
+    border-top-color: rgba(212, 175, 55, 0.65);
+    border-radius: var(--radius);
+}
+
+.career-hidden-input,
+.fashion-hidden-input {
+    display: none;
+}
+
+.career-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.career-input-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    margin-bottom: 1rem;
+}
+
+.career-input-box label {
+    color: var(--silver);
+    font-size: 0.78rem;
+    font-weight: 800;
+}
+
+.career-input-box input,
+.career-input-box textarea {
+    width: 100%;
+    border: 1px solid rgba(216, 216, 216, 0.2);
+    border-radius: 0.7rem;
+    outline: none;
+    padding: 0.8rem 0.9rem;
+    color: var(--silver-light);
+    background: rgba(255, 255, 255, 0.05);
+    font-family: inherit;
+    font-size: 0.86rem;
+}
+
+.career-input-box input:focus,
+.career-input-box textarea:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.16);
+}
+
+.career-input-box textarea {
+    resize: vertical;
+}
+
+.career-submit-button {
+    width: 100%;
+    border-color: var(--gold-light);
+}
+
+.career-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.5rem 12%;
+    border-top: 1px solid rgba(212, 175, 55, 0.25);
+    color: var(--silver-dark);
+    background: #030303;
+    font-size: 0.8rem;
+}
+
+.career-footer a {
+    color: var(--gold-light);
+    font-weight: 700;
+}
+
+/* Career light mode */
+
+#career-portfolio.light-mode {
+    --career-bg: #f5f2e9;
+    --career-text: #1b1b1b;
+    --career-muted: #555555;
+    --career-border: rgba(25, 25, 25, 0.16);
+    background: #f5f2e9;
+}
+
+#career-portfolio.light-mode .career-header {
+    background: rgba(250, 249, 245, 0.93);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.14);
+}
+
+#career-portfolio.light-mode .career-nav-link {
+    color: #353535;
+}
+
+#career-portfolio.light-mode .career-nav-link:hover,
+#career-portfolio.light-mode .career-nav-link.active {
+    color: var(--gold-dark);
+}
+
+#career-portfolio.light-mode .career-menu-button {
+    color: #1b1b1b;
+}
+
+#career-portfolio.light-mode .career-theme-button {
+    color: #eeeeee;
+    background: linear-gradient(135deg, #444444, #111111);
+}
+
+#career-portfolio.light-mode .career-about,
+#career-portfolio.light-mode .career-experience,
+#career-portfolio.light-mode .career-skills,
+#career-portfolio.light-mode .career-projects,
+#career-portfolio.light-mode .career-contact {
+    background: linear-gradient(145deg, #ffffff, #eeeae0);
+}
+
+#career-portfolio.light-mode .career-info-box h1 {
+    background: linear-gradient(135deg, #171717, #858585, #171717);
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+
+#career-portfolio.light-mode .career-about-description,
+#career-portfolio.light-mode .career-section-heading p,
+#career-portfolio.light-mode .career-experience-list li,
+#career-portfolio.light-mode .career-skill-card p {
+    color: #555555;
+}
+
+#career-portfolio.light-mode .career-experience-card,
+#career-portfolio.light-mode .career-skill-card,
+#career-portfolio.light-mode .career-contact-item,
+#career-portfolio.light-mode .career-contact-form {
+    color: #1b1b1b;
+    background: linear-gradient(145deg, #ffffff, #ebe8df);
+    box-shadow: 0 13px 30px rgba(0, 0, 0, 0.1);
+}
+
+#career-portfolio.light-mode .career-experience-top h3,
+#career-portfolio.light-mode .career-skill-card h3,
+#career-portfolio.light-mode .career-contact-item p {
+    color: #1b1b1b;
+}
+
+#career-portfolio.light-mode .career-secondary-button,
+#career-portfolio.light-mode .career-socials a {
+    color: #202020;
+    background: rgba(255, 255, 255, 0.7);
+}
+
+#career-portfolio.light-mode .career-input-box label {
+    color: #333333;
+}
+
+#career-portfolio.light-mode .career-input-box input,
+#career-portfolio.light-mode .career-input-box textarea {
+    color: #171717;
+    background: #ffffff;
+}
+
+#career-portfolio.light-mode .career-visual-circle {
+    color: #1b1b1b;
+    background: #f7f5ef;
+}
+
+#career-portfolio.light-mode .career-visual-circle p {
+    color: #666666;
+}
+
+/* Soft career mouse smoke */
+
+.smoke-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 1.45rem;
+    height: 1.45rem;
+    z-index: 99999;
+    pointer-events: none;
+    border: 1px solid rgba(247, 220, 114, 0.42);
+    border-radius: 50%;
+    opacity: 0;
+    background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.52) 0%,
+        rgba(247, 220, 114, 0.45) 20%,
+        rgba(212, 175, 55, 0.28) 42%,
+        rgba(216, 216, 216, 0.12) 62%,
+        transparent 80%
+    );
+    box-shadow:
+        0 0 6px rgba(247, 220, 114, 0.32),
+        0 0 14px rgba(212, 175, 55, 0.2);
+    filter: blur(1px);
+    transform: translate(-50%, -50%);
+    transition: opacity 0.2s ease;
+}
+
+.smoke-particle {
+    position: fixed;
+    z-index: 99998;
+    pointer-events: none;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.3) 0%,
+        rgba(247, 220, 114, 0.26) 20%,
+        rgba(212, 175, 55, 0.16) 42%,
+        rgba(216, 216, 216, 0.09) 60%,
+        transparent 82%
+    );
+    box-shadow:
+        0 0 8px rgba(247, 220, 114, 0.2),
+        0 0 18px rgba(212, 175, 55, 0.12);
+    filter: blur(5px);
+    transform: translate(-50%, -50%);
+    animation: smoke-fade 1.05s ease-out forwards;
+}
+
+@keyframes smoke-fade {
+    from {
+        opacity: 0.42;
+        transform: translate(-50%, -50%) scale(0.65);
+    }
+
+    to {
+        opacity: 0;
+        filter: blur(12px);
+        transform: translate(
+            calc(-50% + var(--drift-x)),
+            calc(-50% - 45px)
+        ) scale(3);
+    }
+}
+
+/* ==============================
+   FASHION MODE
+   ============================== */
+
+.fashion-view {
+    min-height: 100vh;
+    color: #171614;
+    background: #f4f0e8;
+    font-family: "Poppins", sans-serif;
+}
+
+.fashion-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 5.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 1rem 6%;
+    border-bottom: 1px solid #1b1a18;
+    color: #171614;
+    background: rgba(244, 240, 232, 0.93);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 2000;
+}
+
+.fashion-logo {
+    color: #171614;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    letter-spacing: 0.13rem;
+}
+
+.fashion-logo span {
+    color: #9e7d35;
+}
+
+.fashion-nav {
+    display: flex;
+    gap: 2rem;
+}
+
+.fashion-nav a {
+    position: relative;
+    color: #25231f;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.13rem;
+    text-transform: uppercase;
+}
+
+.fashion-nav a::after {
+    position: absolute;
+    content: "";
+    left: 0;
+    bottom: -0.45rem;
+    width: 0;
+    height: 1px;
+    background: #171614;
+    transition: width 0.25s ease;
+}
+
+.fashion-nav a:hover::after {
+    width: 100%;
+}
+
+.fashion-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.fashion-career-mode {
+    padding: 0.65rem 0.95rem;
+    border: 1px solid #1b1a18;
+    color: #f8f5ed;
+    background: #1b1a18;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.fashion-career-mode:hover {
+    color: #1b1a18;
+    background: transparent;
+}
+
+.fashion-menu-button {
+    display: none;
+    color: #171614;
+    background: transparent;
+    font-size: 1.35rem;
+    cursor: pointer;
+}
+
+.fashion-main section {
+    padding-right: 8%;
+    padding-left: 8%;
+}
+
+.fashion-hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 0.95fr 1.05fr;
+    align-items: stretch;
+    padding: 0 !important;
+    background: #f4f0e8;
+}
+
+.fashion-hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 9rem 12% 5rem;
+}
+
+.fashion-eyebrow {
+    color: #9e7d35;
+    font-size: 0.71rem;
+    font-weight: 700;
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+}
+
+.fashion-hero h1 {
+    margin-top: 1rem;
+    color: #171614;
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(4.3rem, 8vw, 8.5rem);
+    font-weight: 600;
+    letter-spacing: -0.28rem;
+    line-height: 0.73;
+}
+
+.fashion-hero h1 span {
+    color: #9e7d35;
+}
+
+.fashion-hero h2 {
+    margin-top: 2.3rem;
+    color: #171614;
+    font-size: clamp(0.77rem, 1.4vw, 1rem);
+    font-weight: 700;
+    letter-spacing: 0.2rem;
+}
+
+.fashion-hero-content > p:not(.fashion-eyebrow) {
+    max-width: 500px;
+    margin-top: 1.25rem;
+    color: #5a564f;
+    font-size: 0.92rem;
+    line-height: 1.9;
+}
+
+.fashion-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 2rem;
+}
+
+.fashion-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    padding: 0.82rem 1.1rem;
+    border: 1px solid #1b1a18;
+    color: #1b1a18;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.11rem;
+    text-transform: uppercase;
+    transition: 0.25s ease;
+}
+
+.fashion-button-dark {
+    color: #f8f5ed;
+    background: #1b1a18;
+}
+
+.fashion-button-dark:hover {
+    color: #1b1a18;
+    background: transparent;
+    transform: translateY(-2px);
+}
+
+.fashion-button-outline:hover {
+    color: #f8f5ed;
+    background: #1b1a18;
+    transform: translateY(-2px);
+}
+
+/* Hero photo: full image, no crop */
+
+.fashion-hero-photo {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(135deg, #d9d1c4, #f3eee5, #cfc4b4);
+}
+
+.fashion-hero-photo::after {
+    position: absolute;
+    content: "LAWRENCE LABRA · MODEL PORTFOLIO";
+    right: 1.4rem;
+    bottom: 1.5rem;
+    color: #1b1a18;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.16rem;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+}
+
+.fashion-hero-photo img {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    object-position: center;
+    padding: 2.5rem;
+    filter: contrast(1.02) saturate(0.94);
+}
+
+.fashion-gallery-section,
+.fashion-skills-section,
+.fashion-experience-section {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+    background: #f8f5ed;
+}
+
+.fashion-section-heading {
+    max-width: 760px;
+    margin: 0 auto 3.7rem;
+    text-align: center;
+}
+
+.fashion-section-heading p {
+    color: #9e7d35;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+}
+
+.fashion-section-heading h2 {
+    margin-top: 0.5rem;
+    color: #171614;
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(3rem, 6vw, 5.4rem);
+    font-weight: 600;
+    letter-spacing: -0.08rem;
+    line-height: 1;
+}
+
+.fashion-section-heading span {
+    width: 50px;
+    height: 1px;
+    display: block;
+    margin: 1.25rem auto 0;
+    background: #9e7d35;
+}
+
+/* Full photos with editorial frames */
+
+.fashion-gallery {
+    max-width: 1420px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.4rem;
+}
+
+.fashion-photo {
+    position: relative;
+    min-height: 330px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 0.75rem;
+    border: 1px solid rgba(27, 26, 24, 0.68);
+    background: linear-gradient(135deg, #e7dfd2, #fbf8f1 48%, #dcd1c0);
+    box-shadow:
+        0 10px 22px rgba(27, 26, 24, 0.14),
+        inset 0 0 0 5px rgba(255, 255, 255, 0.56);
+    cursor: zoom-in;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fashion-photo::before {
+    position: absolute;
+    content: "";
+    top: 0.35rem;
+    left: 0.35rem;
+    width: calc(100% - 0.7rem);
+    height: 2px;
+    z-index: 2;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #9e7d35 20%,
+        #d7b764 50%,
+        #9e7d35 80%,
+        transparent
+    );
+}
+
+.fashion-photo::after {
+    position: absolute;
+    right: 0.65rem;
+    bottom: 0.65rem;
+    z-index: 3;
+    width: 1.85rem;
+    height: 1.85rem;
+    display: grid;
+    place-items: center;
+    border: 1px solid #9e7d35;
+    color: #f8f5ed;
+    background: rgba(27, 26, 24, 0.9);
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.fashion-photo:nth-child(1)::after {
+    content: "01";
+}
+
+.fashion-photo:nth-child(2)::after {
+    content: "02";
+}
+
+.fashion-photo:nth-child(3)::after {
+    content: "03";
+}
+
+.fashion-photo:nth-child(4)::after {
+    content: "04";
+}
+
+.fashion-photo:nth-child(5)::after {
+    content: "05";
+}
+
+.fashion-photo:nth-child(6)::after {
+    content: "06";
+}
+
+.fashion-photo:nth-child(7)::after {
+    content: "07";
+}
+
+.fashion-photo:nth-child(8)::after {
+    content: "08";
+}
+
+.fashion-photo:nth-child(9)::after {
+    content: "09";
+}
+
+.fashion-photo:nth-child(10)::after {
+    content: "10";
+}
+
+.fashion-photo img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    object-position: center;
+    background: #d5cbbd;
+    filter: contrast(1.02) saturate(0.94);
+    transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+.fashion-photo:hover {
+    z-index: 5;
+    box-shadow:
+        0 18px 38px rgba(27, 26, 24, 0.25),
+        0 0 0 1px #9e7d35,
+        inset 0 0 0 5px rgba(255, 255, 255, 0.7);
+    transform: translateY(-8px);
+}
+
+.fashion-photo:hover img {
+    filter: contrast(1.06) saturate(1);
+    transform: scale(1.02);
+}
+
+.fashion-profile {
+    display: grid;
+    grid-template-columns: 0.86fr 1.14fr;
+    align-items: center;
+    gap: clamp(3rem, 8vw, 9rem);
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+    background: #e9e2d6;
+}
+
+.fashion-profile-photo {
+    min-height: 580px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    border: 1px solid #1b1a18;
+    background: linear-gradient(135deg, #d8cdbc, #f5f0e8, #cbbda9);
+    box-shadow: 0 12px 26px rgba(27, 26, 24, 0.18);
+}
+
+.fashion-profile-photo img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    object-position: center;
+    background: #d5cbbd;
+    filter: contrast(1.02) saturate(0.93);
+}
+
+.fashion-profile-content h2,
+.fashion-availability h2,
+.fashion-contact-content h2 {
+    margin-top: 0.8rem;
+    color: #171614;
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(3.2rem, 6vw, 5.7rem);
+    font-weight: 600;
+    letter-spacing: -0.12rem;
+    line-height: 0.88;
+}
+
+.fashion-profile-content h2 span,
+.fashion-availability h2 span {
+    color: #9e7d35;
+}
+
+.fashion-profile-content > p:not(.fashion-eyebrow) {
+    max-width: 630px;
+    margin-top: 1.25rem;
+    color: #514d46;
+    line-height: 1.9;
+}
+
+.modeling-interests {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin-top: 2rem;
+}
+
+.modeling-interests span {
+    padding: 0.5rem 0.7rem;
+    border: 1px solid rgba(27, 26, 24, 0.42);
+    color: #26231f;
+    font-size: 0.72rem;
+}
+
+.fashion-skills-section {
+    background: #1c1b19;
+}
+
+.fashion-skills-section .fashion-section-heading p {
+    color: #d7b764;
+}
+
+.fashion-skills-section .fashion-section-heading h2 {
+    color: #f4f0e8;
+}
+
+.fashion-skills-grid {
+    max-width: 1120px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid rgba(244, 240, 232, 0.25);
+    border-left: 1px solid rgba(244, 240, 232, 0.25);
+}
+
+.fashion-skill {
+    padding: 1.35rem 0.8rem;
+    border-right: 1px solid rgba(244, 240, 232, 0.25);
+    border-bottom: 1px solid rgba(244, 240, 232, 0.25);
+    color: #f4f0e8;
+    font-size: 0.82rem;
+    text-align: center;
+    transition: 0.25s ease;
+}
+
+.fashion-skill:hover {
+    color: #1b1a18;
+    background: #d7b764;
+}
+
+.fashion-experience-section {
+    background: #f4f0e8;
+}
+
+.fashion-experience-grid {
+    max-width: 1220px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid rgba(27, 26, 24, 0.6);
+    border-left: 1px solid rgba(27, 26, 24, 0.6);
+}
+
+.fashion-experience-card {
+    min-height: 330px;
+    padding: 2rem;
+    border-right: 1px solid rgba(27, 26, 24, 0.6);
+    border-bottom: 1px solid rgba(27, 26, 24, 0.6);
+    transition: background 0.25s ease;
+}
+
+.fashion-experience-card:hover {
+    background: #e7ddcd;
+}
+
+.fashion-experience-card > span {
+    color: #9e7d35;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2.2rem;
+}
+
+.fashion-experience-card h3 {
+    margin-top: 1rem;
+    color: #171614;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    line-height: 1.05;
+}
+
+.fashion-location {
+    margin-top: 0.7rem;
+    color: #9e7d35;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.11rem;
+    text-transform: uppercase;
+}
+
+.fashion-experience-card > p:last-child {
+    margin-top: 1rem;
+    color: #565149;
+    font-size: 0.84rem;
+    line-height: 1.8;
+}
+
+.fashion-availability {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    background: #dad0c1;
+}
+
+.fashion-availability-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 7rem 10%;
+}
+
+.availability-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem;
+    margin-top: 2rem;
+}
+
+.availability-list span {
+    display: flex;
+    gap: 0.55rem;
+    color: #38342e;
+    font-size: 0.82rem;
+}
+
+.availability-list i {
+    color: #9e7d35;
+}
+
+.fashion-availability-photo {
+    min-height: 620px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    border-left: 1px solid #1b1a18;
+    background: linear-gradient(135deg, #cfc1ad, #f2ece1, #c7b59e);
+}
+
+.fashion-availability-photo img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    object-position: center;
+    background: #d5cbbd;
+    filter: contrast(1.02) saturate(0.93);
+}
+
+.fashion-contact-section {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 4rem;
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+    background: #1c1b19;
+}
+
+.fashion-contact-content .fashion-eyebrow {
+    color: #d7b764;
+}
+
+.fashion-contact-content h2 {
+    color: #f4f0e8;
+}
+
+.fashion-contact-content h2 span {
+    color: #d7b764;
+}
+
+.fashion-contact-content > p:not(.fashion-eyebrow) {
+    max-width: 600px;
+    margin-top: 1.3rem;
+    color: #c6c0b5;
+    line-height: 1.9;
+}
+
+.fashion-contact-links {
+    display: grid;
+    gap: 0.8rem;
+    margin-top: 2rem;
+}
+
+.fashion-contact-links a {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    width: fit-content;
+    color: #f4f0e8;
+    font-size: 0.88rem;
+    transition: color 0.2s ease;
+}
+
+.fashion-contact-links a:hover {
+    color: #d7b764;
+}
+
+.fashion-contact-links i {
+    width: 1.2rem;
+    color: #d7b764;
+}
+
+.fashion-contact-form {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    border: 1px solid rgba(244, 240, 232, 0.5);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.fashion-contact-form label {
+    margin: 1rem 0 0.4rem;
+    color: #d7b764;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12rem;
+    text-transform: uppercase;
+}
+
+.fashion-contact-form input,
+.fashion-contact-form textarea {
+    width: 100%;
+    border: 1px solid rgba(244, 240, 232, 0.35);
+    outline: none;
+    padding: 0.85rem;
+    color: #f4f0e8;
+    background: rgba(255, 255, 255, 0.05);
+    font-family: inherit;
+}
+
+.fashion-contact-form input:focus,
+.fashion-contact-form textarea:focus {
+    border-color: #d7b764;
+}
+
+.fashion-contact-form textarea {
+    resize: vertical;
+}
+
+.fashion-submit-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    margin-top: 1.5rem;
+    padding: 0.9rem 1.1rem;
+    color: #1b1a18;
+    background: #d7b764;
+    font-family: inherit;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.fashion-submit-button:hover {
+    color: #f4f0e8;
+    background: transparent;
+    outline: 1px solid #d7b764;
+}
+
+.fashion-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.8rem 8%;
+    border-top: 1px solid rgba(244, 240, 232, 0.22);
+    color: #a8a095;
+    background: #12110f;
+    font-size: 0.72rem;
+    letter-spacing: 0.08rem;
+}
+
+.fashion-footer button {
+    color: #d7b764;
+    background: transparent;
+    font-family: inherit;
+    font-size: 0.72rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* Fashion full image preview */
+
+.fashion-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: rgba(19, 17, 14, 0.96);
+}
+
+.fashion-lightbox.active {
+    display: flex;
+}
+
+.fashion-lightbox img {
+    max-width: 94vw;
+    max-height: 88vh;
+    display: block;
+    object-fit: contain;
+    padding: 0.7rem;
+    border: 1px solid rgba(215, 183, 100, 0.75);
+    background: #eee7dc;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5);
+}
+
+.fashion-lightbox-close {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    width: 2.8rem;
+    height: 2.8rem;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(215, 183, 100, 0.7);
+    color: #f4f0e8;
+    background: rgba(27, 26, 24, 0.8);
+    font-size: 1.35rem;
+    cursor: pointer;
+}
+
+/* ==============================
+   RESPONSIVE DESIGN
+   ============================== */
+
+@media (max-width: 1180px) {
+    .career-header {
+        width: min(1090px, calc(100% - 2rem));
+    }
+
+    .career-nav-links {
+        gap: 0.8rem;
+    }
+
+    .career-fashion-mode {
+        width: 2.35rem;
+        height: 2.35rem;
+        padding: 0;
+        font-size: 0;
+    }
+
+    .career-fashion-mode i {
+        font-size: 0.9rem;
+    }
+
+    .fashion-gallery {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+    }
+
+    .fashion-photo {
+        min-height: 300px;
+    }
+}
+
+@media (max-width: 1000px) {
+    #career-portfolio section {
+        padding-right: 7%;
+        padding-left: 7%;
+    }
+
+    .career-skills-grid,
+    .career-projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .fashion-profile,
+    .fashion-availability,
+    .fashion-contact-section {
+        grid-template-columns: 1fr;
+    }
+
+    .fashion-experience-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .fashion-profile-photo {
+        min-height: 460px;
+    }
+}
+
+@media (max-width: 800px) {
+    .career-header {
+        width: calc(100% - 1.4rem);
+        gap: 0.7rem;
+        padding: 0.65rem 0.9rem 0.65rem 1.1rem;
+    }
+
+    .career-navbar {
+        order: 3;
+        margin: 0;
+    }
+
+    .career-menu-button {
+        display: block;
+    }
+
+    .career-nav-links {
+        position: absolute;
+        top: calc(100% + 0.7rem);
+        left: 0;
+        width: 100%;
+        display: none;
+        flex-direction: column;
+        gap: 0;
+        overflow: hidden;
+        border: 1px solid rgba(212, 175, 55, 0.45);
+        border-radius: 1.35rem;
+        background: rgba(5, 5, 5, 0.98);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    }
+
+    .career-nav-links.active {
+        display: flex;
+    }
+
+    .career-nav-links li,
+    .career-nav-link {
+        width: 100%;
+    }
+
+    .career-nav-link {
+        display: block;
+        padding: 0.9rem 1.4rem;
+        text-align: center;
+    }
+
+    .career-nav-link::after {
+        display: none;
+    }
+
+    .career-nav-link:hover,
+    .career-nav-link.active {
+        color: #151515;
+        background: var(--gold-gradient);
+    }
+
+    #career-portfolio.light-mode .career-nav-links {
+        background: rgba(250, 249, 245, 0.98);
+    }
+
+    #career-portfolio.light-mode .career-nav-link {
+        color: #222222;
+    }
+
+    .career-about {
+        padding-top: 8.5rem !important;
+    }
+
+    .career-about-container,
+    .career-experience-layout,
+    .career-contact-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .career-info-box {
+        align-items: center;
+        text-align: center;
+    }
+
+    .career-profile-area {
+        width: min(74vw, 320px);
+    }
+
+    .career-experience-visual {
+        min-height: 280px;
+    }
+
+    .career-footer {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .fashion-header {
+        min-height: 4.5rem;
+        padding: 0.85rem 5%;
+    }
+
+    .fashion-nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        display: none;
+        flex-direction: column;
+        gap: 0;
+        padding: 0.5rem 5%;
+        border-bottom: 1px solid #1b1a18;
+        background: rgba(244, 240, 232, 0.98);
+    }
+
+    .fashion-nav.active {
+        display: flex;
+    }
+
+    .fashion-nav a {
+        padding: 0.85rem 0;
+    }
+
+    .fashion-menu-button {
+        display: block;
+    }
+
+    .fashion-career-mode {
+        width: 2.5rem;
+        height: 2.5rem;
+        padding: 0;
+        font-size: 0;
+    }
+
+    .fashion-career-mode i {
+        font-size: 0.95rem;
+    }
+
+    .fashion-hero {
+        grid-template-columns: 1fr;
+    }
+
+    .fashion-hero-content {
+        min-height: 68vh;
+        padding: 8rem 8% 4rem;
+    }
+
+    .fashion-hero-photo {
+        min-height: 55vh;
+    }
+
+    .fashion-hero-photo img {
+        padding: 1rem;
+    }
+
+    .fashion-main section {
+        padding-right: 6%;
+        padding-left: 6%;
+    }
+
+    .fashion-gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.85rem;
+    }
+
+    .fashion-photo {
+        min-height: 280px;
+        padding: 0.55rem;
+    }
+
+    .fashion-profile-photo {
+        min-height: 450px;
+    }
+
+    .fashion-availability-photo {
+        min-height: 460px;
+        border-top: 1px solid #1b1a18;
+        border-left: none;
+    }
+
+    .fashion-skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .fashion-footer {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+@media (max-width: 560px) {
+    #career-portfolio section {
+        min-height: auto;
+        padding: 7.5rem 1.2rem 4.5rem;
+    }
+
+    .career-logo {
+        max-width: 120px;
+        overflow: hidden;
+        font-size: 0.88rem;
+        text-overflow: ellipsis;
+    }
+
+    .career-linkedin-button {
+        display: none;
+    }
+
+    .career-header-actions {
+        margin-left: auto;
+    }
+
+    .career-about {
+        min-height: 100vh !important;
+    }
+
+    .career-profile-area {
+        width: min(70vw, 250px);
+    }
+
+    .career-info-box h1 {
+        letter-spacing: -0.1rem;
+    }
+
+    .career-skills-grid,
+    .career-projects-grid,
+    .career-form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .career-form-row {
+        gap: 0;
+    }
+
+    .career-experience-card,
+    .career-contact-form {
+        padding: 1.25rem;
+    }
+
+    .career-visual-circle {
+        width: 200px;
+    }
+
+    .career-floating-icon {
+        width: 3.1rem;
+        height: 3.1rem;
+        font-size: 1rem;
+    }
+
+    .fashion-logo {
+        font-size: 1.35rem;
+    }
+
+    .fashion-hero h1 {
+        font-size: 4.5rem;
+    }
+
+    .fashion-hero h2 {
+        letter-spacing: 0.1rem;
+    }
+
+    .fashion-gallery {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .fashion-photo {
+        min-height: 450px;
+        padding: 0.7rem;
+    }
+
+    .fashion-profile-photo {
+        min-height: 400px;
+    }
+
+    .fashion-availability-photo {
+        min-height: 420px;
+    }
+
+    .fashion-skills-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .availability-list {
+        grid-template-columns: 1fr;
+    }
+
+    .fashion-contact-section {
+        gap: 2rem;
+    }
+
+    .fashion-contact-form {
+        padding: 1.25rem;
+    }
+}
+
+@media (hover: none), (pointer: coarse) {
+    .smoke-cursor,
+    .smoke-particle {
+        display: none;
+    }
+}
