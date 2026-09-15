@@ -1,1150 +1,557 @@
-:root {
-    --black: #050505;
-    --gold: #d4af37;
-    --gold-bright: #f7dc72;
-    --gold-dark: #8e6b18;
-    --silver: #d8d8d8;
-    --silver-light: #f2f2f2;
-    --silver-dark: #8b8b8b;
-    --text: #eeeeee;
-    --text-muted: #b8b8b8;
-    --gold-gradient: linear-gradient(135deg, #8e6b18, #d4af37 45%, #f7dc72 65%, #b38728);
-    --silver-gradient: linear-gradient(135deg, #777777, #f0f0f0 45%, #9b9b9b 70%, #eeeeee);
-    --shadow: 0 20px 55px rgba(0, 0, 0, 0.55);
-    --gold-shadow: 0 12px 34px rgba(212, 175, 55, 0.2);
-    --radius: 1.5rem;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    color: var(--text);
-    background:
-        radial-gradient(circle at 10% 10%, rgba(212, 175, 55, 0.11), transparent 28%),
-        radial-gradient(circle at 90% 72%, rgba(216, 216, 216, 0.06), transparent 27%),
-        var(--black);
-    font-family: "Poppins", sans-serif;
-    overflow-x: hidden;
-}
-
-a {
-    color: inherit;
-    text-decoration: none;
-}
-
-ul {
-    list-style: none;
-}
-
-section {
-    width: 100%;
-    min-height: 100vh;
-    padding: 9rem 12% 6rem;
-    scroll-margin-top: 5rem;
-}
-
-.section-heading {
-    max-width: 720px;
-    margin: 0 auto 4rem;
-    text-align: center;
-}
-
-.heading-label {
-    display: inline-block;
-    margin-bottom: 0.65rem;
-    color: var(--gold-bright);
-    font-size: 0.78rem;
-    font-weight: 800;
-    letter-spacing: 0.18rem;
-    text-transform: uppercase;
-}
-
-.section-title {
-    color: transparent;
-    background: var(--silver-gradient);
-    background-clip: text;
-    -webkit-background-clip: text;
-    font-size: clamp(2.25rem, 5vw, 3.8rem);
-    font-weight: 800;
-    line-height: 1.1;
-}
-
-.section-heading > p {
-    max-width: 600px;
-    margin: 1rem auto 0;
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    line-height: 1.8;
-}
-
-/* Header */
-
-.header {
-    position: fixed;
-    top: 1rem;
-    left: 50%;
-    transform: translateX(-50%);
-    width: min(1120px, calc(100% - 2rem));
-    min-height: 4.5rem;
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    padding: 0.65rem 1rem 0.65rem 1.5rem;
-    border: 1px solid rgba(212, 175, 55, 0.38);
-    border-radius: 3rem;
-    color: var(--silver-light);
-    background: rgba(5, 5, 5, 0.88);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    box-shadow: 0 12px 38px rgba(0, 0, 0, 0.62);
-    transition: 0.3s ease;
-    z-index: 1000;
-}
-
-.header.scrolled {
-    top: 0.55rem;
-    min-height: 4rem;
-    border-color: rgba(212, 175, 55, 0.62);
-}
-
-.logo {
-    font-size: 1.08rem;
-    font-weight: 800;
-    white-space: nowrap;
-}
-
-.logo span {
-    color: transparent;
-    background: var(--gold-gradient);
-    background-clip: text;
-    -webkit-background-clip: text;
-}
-
-.navbar {
-    margin: 0 auto;
-}
-
-.nav-links {
-    display: flex;
-    align-items: center;
-    gap: 1.55rem;
-}
-
-.nav-link {
-    position: relative;
-    color: rgba(242, 242, 242, 0.78);
-    font-size: 0.88rem;
-    font-weight: 500;
-    transition: color 0.25s ease;
-}
-
-.nav-link::after {
-    position: absolute;
-    content: "";
-    bottom: -0.47rem;
-    left: 0;
-    width: 0;
-    height: 2px;
-    border-radius: 1rem;
-    background: var(--gold-gradient);
-    transition: width 0.25s ease;
-}
-
-.nav-link:hover,
-.nav-link.active {
-    color: var(--gold-bright);
-}
-
-.nav-link:hover::after,
-.nav-link.active::after {
-    width: 100%;
-}
-
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 0.65rem;
-}
-
-.visit-btn,
-.theme-toggle,
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.55rem;
-    border-radius: 3rem;
-    font-family: inherit;
-    font-weight: 800;
-    cursor: pointer;
-    transition: 0.25s ease;
-}
-
-.visit-btn {
-    padding: 0.72rem 1.1rem;
-    border: 1px solid rgba(247, 220, 114, 0.75);
-    color: #101010;
-    background: var(--gold-gradient);
-    font-size: 0.85rem;
-}
-
-.visit-btn:hover,
-.primary-btn:hover {
-    box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
-    transform: translateY(-3px);
-}
-
-.theme-toggle {
-    width: 2.55rem;
-    height: 2.55rem;
-    border: 1px solid rgba(247, 220, 114, 0.7);
-    color: #111111;
-    background: var(--gold-gradient);
-    font-size: 1rem;
-}
-
-.theme-toggle:hover {
-    transform: rotate(18deg) scale(1.07);
-}
-
-.menu-button {
-    display: none;
-    border: none;
-    outline: none;
-    color: var(--silver-light);
-    background: transparent;
-    font-size: 1.45rem;
-    cursor: pointer;
-}
-
-/* About */
-
-.about {
-    display: flex;
-    align-items: center;
-    background:
-        radial-gradient(circle at 12% 25%, rgba(212, 175, 55, 0.17), transparent 29%),
-        radial-gradient(circle at 88% 75%, rgba(216, 216, 216, 0.07), transparent 25%),
-        linear-gradient(145deg, #111111, #050505 60%);
-}
-
-.about-container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: minmax(250px, 0.85fr) minmax(330px, 1.15fr);
-    align-items: center;
-    gap: clamp(3rem, 9vw, 9rem);
-}
-
-.profile-area {
-    position: relative;
-    width: min(100%, 390px);
-    margin: 0 auto;
-}
-
-.profile-area::before {
-    position: absolute;
-    content: "";
-    inset: -1.2rem;
-    z-index: -1;
-    border-radius: 50%;
-    background: var(--gold-gradient);
-    filter: drop-shadow(0 10px 24px rgba(212, 175, 55, 0.25));
-}
-
-.profile-image {
-    display: block;
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border: 8px solid #151515;
-    border-radius: 50%;
-    box-shadow: 0 22px 50px rgba(0, 0, 0, 0.62);
-}
-
-.info-box {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.intro-label {
-    margin-bottom: 0.25rem;
-    color: var(--silver-dark);
-    font-size: 1.2rem;
-    font-weight: 500;
-}
-
-.info-box h1 {
-    color: transparent;
-    background: var(--silver-gradient);
-    background-clip: text;
-    -webkit-background-clip: text;
-    font-size: clamp(2.75rem, 6vw, 5.25rem);
-    font-weight: 800;
-    letter-spacing: -0.18rem;
-    line-height: 1;
-}
-
-.info-box h2 {
-    margin-top: 1rem;
-    color: transparent;
-    background: var(--gold-gradient);
-    background-clip: text;
-    -webkit-background-clip: text;
-    font-size: clamp(1.08rem, 2vw, 1.5rem);
-    font-weight: 700;
-}
-
-.about-description {
-    max-width: 640px;
-    margin: 1.55rem 0;
-    color: var(--text-muted);
-    font-size: 0.98rem;
-    line-height: 1.85;
-}
-
-.btn-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.85rem;
-}
-
-.btn {
-    padding: 0.8rem 1.25rem;
-    border: 1px solid rgba(216, 216, 216, 0.5);
-    font-size: 0.92rem;
-}
-
-.primary-btn {
-    border-color: rgba(247, 220, 114, 0.85);
-    color: #101010;
-    background: var(--gold-gradient);
-}
-
-.secondary-btn {
-    color: var(--silver-light);
-    background: rgba(216, 216, 216, 0.06);
-}
-
-.secondary-btn:hover {
-    border-color: var(--silver-light);
-    color: #101010;
-    background: var(--silver-gradient);
-    transform: translateY(-3px);
-}
-
-.socials {
-    display: flex;
-    gap: 0.85rem;
-    margin-top: 1.65rem;
-}
-
-.socials a {
-    width: 2.75rem;
-    height: 2.75rem;
-    display: grid;
-    place-items: center;
-    border: 1px solid rgba(216, 216, 216, 0.52);
-    border-radius: 50%;
-    color: var(--silver-light);
-    background: rgba(255, 255, 255, 0.03);
-    font-size: 1.1rem;
-    transition: 0.25s ease;
-}
-
-.socials a:hover {
-    border-color: var(--gold);
-    color: #101010;
-    background: var(--gold-gradient);
-    transform: translateY(-4px) scale(1.04);
-}
-
-/* Experience */
-
-.experience {
-    background: linear-gradient(rgba(5, 5, 5, 0.86), rgba(5, 5, 5, 0.94));
-}
-
-.experience-layout {
-    max-width: 1160px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1.25fr 0.75fr;
-    align-items: center;
-    gap: 3rem;
-}
-
-.experience-card,
-.skill-card,
-.contact-item,
-.contact-form {
-    border: 1px solid rgba(216, 216, 216, 0.16);
-    background: linear-gradient(145deg, #181818, #0c0c0c);
-    box-shadow: var(--shadow);
-}
-
-.experience-card {
-    padding: clamp(1.5rem, 4vw, 2.6rem);
-    border-top-color: rgba(212, 175, 55, 0.58);
-    border-radius: var(--radius);
-}
-
-.experience-header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.experience-icon,
-.skill-icon,
-.contact-icon {
-    display: grid;
-    place-items: center;
-    color: #121212;
-    background: var(--gold-gradient);
-}
-
-.experience-icon {
-    width: 3.65rem;
-    height: 3.65rem;
-    border-radius: 1rem;
-    font-size: 1.45rem;
-}
-
-.experience-header h3,
-.skill-card h3 {
-    color: var(--silver-light);
-    font-size: 1.3rem;
-    font-weight: 800;
-}
-
-.company-name {
-    margin-top: 0.15rem;
-    color: var(--gold-bright);
-    font-size: 0.92rem;
-    font-weight: 700;
-}
-
-.experience-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem 1.4rem;
-    margin: 1.8rem 0 1.4rem;
-    color: var(--silver-dark);
-    font-size: 0.84rem;
-}
-
-.experience-meta span {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-}
-
-.experience-meta i,
-.experience-list li::before {
-    color: var(--gold);
-}
-
-.experience-list {
-    display: grid;
-    gap: 1rem;
-}
-
-.experience-list li {
-    position: relative;
-    padding-left: 1.55rem;
-    color: var(--text-muted);
-    font-size: 0.94rem;
-    line-height: 1.8;
-}
-
-.experience-list li::before {
-    position: absolute;
-    content: "◆";
-    left: 0;
-    top: 0.38rem;
-    font-size: 0.65rem;
-}
-
-.support-visual {
-    position: relative;
-    min-height: 355px;
-    display: grid;
-    place-items: center;
-}
-
-.main-visual {
-    width: min(100%, 260px);
-    aspect-ratio: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid var(--gold);
-    border-radius: 50%;
-    color: var(--silver-light);
-    background: #101010;
-    text-align: center;
-}
-
-.main-visual > i {
-    color: var(--gold-bright);
-    font-size: 3rem;
-}
-
-.main-visual h3 {
-    margin-top: 0.9rem;
-    font-size: 1.4rem;
-}
-
-.main-visual p {
-    margin-top: 0.25rem;
-    color: var(--silver-dark);
-    font-size: 0.73rem;
-}
-
-.floating-icon {
-    position: absolute;
-    width: 3.8rem;
-    height: 3.8rem;
-    display: grid;
-    place-items: center;
-    border: 1px solid var(--gold-bright);
-    border-radius: 50%;
-    color: #101010;
-    background: var(--gold-gradient);
-    font-size: 1.3rem;
-}
-
-.icon-wifi {
-    top: 4%;
-    left: 3%;
-}
-
-.icon-laptop {
-    top: 40%;
-    right: 0;
-}
-
-.icon-network {
-    bottom: 3%;
-    left: 10%;
-}
-
-/* Skills */
-
-.skills {
-    background: #0b0b0b;
-}
-
-.skills-grid,
-.projects-grid {
-    max-width: 1160px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
-}
-
-.skill-card {
-    padding: 1.85rem 1.45rem;
-    border-radius: 1.25rem;
-    transition: 0.25s ease;
-}
-
-.skill-card:hover,
-.project-card:hover {
-    border-color: rgba(212, 175, 55, 0.7);
-    box-shadow: var(--gold-shadow);
-    transform: translateY(-7px);
-}
-
-.skill-icon {
-    width: 3.35rem;
-    height: 3.35rem;
-    margin-bottom: 1.25rem;
-    border-radius: 0.9rem;
-    font-size: 1.35rem;
-}
-
-.skill-card h3 {
-    margin-bottom: 0.65rem;
-    font-size: 1.13rem;
-}
-
-.skill-card p {
-    color: var(--text-muted);
-    font-size: 0.88rem;
-    line-height: 1.75;
-}
-
-/* Projects */
-
-.projects {
-    background: linear-gradient(145deg, #101010, #050505);
-}
-
-.project-card {
-    min-height: 370px;
-    display: flex;
-    flex-direction: column;
-    padding: 1.85rem 1.45rem;
-    border: 1px solid rgba(216, 216, 216, 0.16);
-    border-radius: 1.35rem;
-    transition: 0.25s ease;
-}
-
-.dark-card {
-    color: var(--silver-light);
-    background: linear-gradient(145deg, #202020, #080808);
-}
-
-.silver-card {
-    color: #141414;
-    background: var(--silver-gradient);
-}
-
-.gold-card {
-    color: #141414;
-    background: var(--gold-gradient);
-}
-
-.project-icon {
-    width: 3.55rem;
-    height: 3.55rem;
-    display: grid;
-    place-items: center;
-    margin-bottom: 1.3rem;
-    border-radius: 1rem;
-    color: #141414;
-    background: var(--gold-gradient);
-    font-size: 1.4rem;
-}
-
-.black-icon {
-    color: var(--gold-bright);
-    background: #111111;
-}
-
-.brown-icon {
-    color: var(--silver-light);
-    background: #4b3910;
-}
-
-.project-type {
-    margin-bottom: 0.65rem;
-    color: var(--gold-bright);
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 0.07rem;
-    text-transform: uppercase;
-}
-
-.dark-gold-text {
-    color: #725500;
-}
-
-.project-card h3 {
-    font-size: 1.3rem;
-    font-weight: 800;
-    line-height: 1.35;
-}
-
-.school-name {
-    margin-top: 0.55rem;
-    font-size: 0.9rem;
-    font-weight: 700;
-}
-
-.project-description {
-    margin-top: 1rem;
-    color: rgba(242, 242, 242, 0.72);
-    font-size: 0.88rem;
-    line-height: 1.75;
-}
-
-.silver-card .project-description,
-.gold-card .project-description {
-    color: #3f3f3f;
-}
-
-.project-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.45rem;
-    margin-top: auto;
-    padding-top: 1.5rem;
-}
-
-.project-tags span {
-    padding: 0.33rem 0.62rem;
-    border: 1px solid rgba(247, 220, 114, 0.5);
-    border-radius: 2rem;
-    color: var(--gold-bright);
-    font-size: 0.68rem;
-    font-weight: 700;
-}
-
-.achievement {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-top: auto;
-    padding-top: 1.5rem;
-    color: #4c3b08;
-    font-size: 0.85rem;
-    font-weight: 800;
-}
-
-/* Contact */
-
-.contact {
-    background: var(--black);
-}
-
-.contact-layout {
-    max-width: 1060px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 0.85fr 1.15fr;
-    align-items: start;
-    gap: 2rem;
-}
-
-.contact-details {
-    display: grid;
-    gap: 0.85rem;
-}
-
-.contact-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem;
-    border-radius: 1rem;
-    transition: 0.25s ease;
-}
-
-a.contact-item:hover {
-    border-color: rgba(212, 175, 55, 0.72);
-    transform: translateX(5px);
-}
-
-.contact-icon {
-    width: 2.8rem;
-    height: 2.8rem;
-    flex-shrink: 0;
-    border-radius: 0.8rem;
-    font-size: 1.12rem;
-}
-
-.contact-item span {
-    display: block;
-    color: var(--silver-dark);
-    font-size: 0.74rem;
-    font-weight: 700;
-}
-
-.contact-item p {
-    margin-top: 0.1rem;
-    color: var(--silver-light);
-    font-size: 0.84rem;
-    font-weight: 700;
-    overflow-wrap: anywhere;
-}
-
-.contact-form {
-    padding: 1.7rem;
-    border-top-color: rgba(212, 175, 55, 0.58);
-    border-radius: var(--radius);
-}
-
-.hidden-input {
-    display: none;
-}
-
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-}
-
-.input-box {
-    display: flex;
-    flex-direction: column;
-    gap: 0.45rem;
-    margin-bottom: 1rem;
-}
-
-.input-box label {
-    color: var(--silver);
-    font-size: 0.78rem;
-    font-weight: 800;
-}
-
-.input-box input,
-.input-box textarea {
-    width: 100%;
-    outline: none;
-    border: 1px solid rgba(216, 216, 216, 0.2);
-    border-radius: 0.7rem;
-    padding: 0.8rem 0.9rem;
-    color: var(--silver-light);
-    background: rgba(255, 255, 255, 0.045);
-    font-family: inherit;
-    font-size: 0.86rem;
-}
-
-.input-box textarea {
-    resize: vertical;
-}
-
-.input-box input:focus,
-.input-box textarea:focus {
-    border-color: var(--gold);
-    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.16);
-}
-
-.submit-btn {
-    width: 100%;
-    border-color: var(--gold-bright);
-}
-
-/* Footer */
-
-.footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 1.5rem 12%;
-    border-top: 1px solid rgba(212, 175, 55, 0.25);
-    color: var(--silver-dark);
-    background: #030303;
-    font-size: 0.8rem;
-}
-
-.back-to-top {
-    color: var(--gold-bright);
-    font-weight: 700;
-}
-
-/* Visible smoke mouse effect */
-
-.smoke-cursor {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 2.2rem;
-    height: 2.2rem;
-    z-index: 99999;
-    pointer-events: none;
-    border: 1px solid rgba(255, 239, 156, 0.9);
-    border-radius: 50%;
-    opacity: 0;
-    background: radial-gradient(circle, #ffffff 0%, rgba(247, 220, 114, 0.95) 18%, rgba(212, 175, 55, 0.7) 38%, rgba(216, 216, 216, 0.4) 58%, transparent 80%);
-    box-shadow: 0 0 10px rgba(247, 220, 114, 0.9), 0 0 22px rgba(212, 175, 55, 0.7), 0 0 38px rgba(216, 216, 216, 0.32);
-    filter: blur(1px);
-    transform: translate(-50%, -50%);
-    transition: opacity 0.15s ease;
-    mix-blend-mode: screen;
-}
-
-.smoke-particle {
-    position: fixed;
-    z-index: 99998;
-    pointer-events: none;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(247,220,114,0.68) 17%, rgba(212,175,55,0.48) 35%, rgba(216,216,216,0.28) 54%, transparent 82%);
-    box-shadow: 0 0 12px rgba(247, 220, 114, 0.75), 0 0 30px rgba(212, 175, 55, 0.42);
-    filter: blur(4px);
-    transform: translate(-50%, -50%);
-    animation: luxury-smoke-fade 1.35s ease-out forwards;
-    mix-blend-mode: screen;
-}
-
-@keyframes luxury-smoke-fade {
-    0% {
-        opacity: 0.98;
-        transform: translate(-50%, -50%) scale(0.6);
-    }
-
-    100% {
-        opacity: 0;
-        filter: blur(13px);
-        transform: translate(calc(-50% + var(--smoke-drift-x)), calc(-50% - 68px)) scale(4.3);
-    }
-}
-
-.smoke-spark {
-    position: fixed;
-    z-index: 100000;
-    width: 5px;
-    height: 5px;
-    pointer-events: none;
-    border-radius: 50%;
-    background: #fff7c8;
-    box-shadow: 0 0 7px #ffffff, 0 0 14px #f7dc72, 0 0 23px #d4af37;
-    transform: translate(-50%, -50%);
-    animation: gold-spark-fade 0.85s ease-out forwards;
-}
-
-@keyframes gold-spark-fade {
-    0% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(0.8);
-    }
-
-    100% {
-        opacity: 0;
-        transform: translate(calc(-50% + var(--spark-x)), calc(-50% + var(--spark-y))) scale(0);
-    }
-}
-
-/* Light mode */
-
-body.light-mode {
-    --black: #f3f1ea;
-    --text: #1b1b1b;
-    --text-muted: #595959;
-    background: #f6f4ee;
-}
-
-body.light-mode .header {
-    color: #1a1a1a;
-    background: rgba(250, 249, 245, 0.9);
-}
-
-body.light-mode .nav-link {
-    color: #353535;
-}
-
-body.light-mode .nav-link:hover,
-body.light-mode .nav-link.active {
-    color: var(--gold-dark);
-}
-
-body.light-mode .menu-button {
-    color: #1b1b1b;
-}
-
-body.light-mode .theme-toggle {
-    color: #eeeeee;
-    background: linear-gradient(135deg, #444444, #111111);
-}
-
-body.light-mode .about,
-body.light-mode .experience,
-body.light-mode .skills,
-body.light-mode .projects,
-body.light-mode .contact {
-    background: linear-gradient(145deg, #ffffff, #eeeae0);
-}
-
-body.light-mode .info-box h1 {
-    background: linear-gradient(135deg, #171717, #858585, #171717);
-    background-clip: text;
-    -webkit-background-clip: text;
-}
-
-body.light-mode .about-description,
-body.light-mode .section-heading > p,
-body.light-mode .experience-list li,
-body.light-mode .skill-card p {
-    color: #555555;
-}
-
-body.light-mode .experience-card,
-body.light-mode .skill-card,
-body.light-mode .contact-item,
-body.light-mode .contact-form {
-    color: #1b1b1b;
-    background: linear-gradient(145deg, #ffffff, #ebe8df);
-    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.1);
-}
-
-body.light-mode .experience-header h3,
-body.light-mode .skill-card h3,
-body.light-mode .contact-item p {
-    color: #1b1b1b;
-}
-
-body.light-mode .secondary-btn,
-body.light-mode .socials a {
-    color: #202020;
-    background: rgba(255, 255, 255, 0.65);
-}
-
-body.light-mode .input-box label {
-    color: #333333;
-}
-
-body.light-mode .input-box input,
-body.light-mode .input-box textarea {
-    color: #171717;
-    background: #ffffff;
-}
-
-/* Responsive */
-
-@media (max-width: 1050px) {
-    section {
-        padding-right: 7%;
-        padding-left: 7%;
-    }
-
-    .about-container {
-        gap: 4rem;
-    }
-
-    .skills-grid,
-    .projects-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 800px) {
-    .header {
-        width: calc(100% - 1.5rem);
-        gap: 0.8rem;
-        padding: 0.65rem 1rem 0.65rem 1.2rem;
-    }
-
-    .navbar {
-        order: 3;
-        margin: 0;
-    }
-
-    .menu-button {
-        display: block;
-    }
-
-    .nav-links {
-        position: absolute;
-        top: calc(100% + 0.7rem);
-        left: 0;
-        width: 100%;
-        display: none;
-        flex-direction: column;
-        gap: 0;
-        overflow: hidden;
-        border: 1px solid rgba(212, 175, 55, 0.45);
-        border-radius: 1.35rem;
-        background: rgba(5, 5, 5, 0.98);
-    }
-
-    .nav-links.active {
-        display: flex;
-    }
-
-    .nav-links li,
-    .nav-link {
-        width: 100%;
-    }
-
-    .nav-link {
-        display: block;
-        padding: 0.9rem 1.4rem;
-        text-align: center;
-    }
-
-    .nav-link::after {
-        display: none;
-    }
-
-    .nav-link:hover,
-    .nav-link.active {
-        color: #161616;
-        background: var(--gold-gradient);
-    }
-
-    .about {
-        padding-top: 8.5rem;
-    }
-
-    .about-container,
-    .experience-layout,
-    .contact-layout {
-        grid-template-columns: 1fr;
-    }
-
-    .info-box {
-        align-items: center;
-        text-align: center;
-    }
-
-    .profile-area {
-        width: min(74vw, 320px);
-    }
-
-    .support-visual {
-        min-height: 285px;
-    }
-
-    .footer {
-        flex-direction: column;
-        padding-right: 7%;
-        padding-left: 7%;
-        text-align: center;
-    }
-}
-
-@media (max-width: 560px) {
-    section {
-        min-height: auto;
-        padding: 7.5rem 1.2rem 4.5rem;
-    }
-
-    .logo {
-        max-width: 135px;
-        overflow: hidden;
-        font-size: 0.9rem;
-        text-overflow: ellipsis;
-    }
-
-    .visit-btn {
-        display: none;
-    }
-
-    .header-actions {
-        margin-left: auto;
-    }
-
-    .about {
-        min-height: 100vh;
-    }
-
-    .skills-grid,
-    .projects-grid,
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-
-    .form-row {
-        gap: 0;
-    }
-
-    .experience-card,
-    .contact-form {
-        padding: 1.25rem;
-    }
-}
-
-@media (hover: none), (pointer: coarse) {
-    .smoke-cursor,
-    .smoke-particle,
-    .smoke-spark {
-        display: none;
-    }
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lawrence L. Labra | IT Support Portfolio</title>
+
+    <meta
+        name="description"
+        content="Portfolio of Lawrence L. Labra, an Information Systems graduate with hands-on experience in IT support, computer maintenance, network troubleshooting, RJ45 cables, and technical problem-solving."
+    >
+    <meta
+        name="keywords"
+        content="Lawrence Labra, Lawrence L. Labra, IT Support, IT Technician, Information Systems Graduate, Network Troubleshooting, Computer Repair, Dasmariñas Cavite"
+    >
+    <meta name="author" content="Lawrence L. Labra">
+    <meta name="robots" content="index, follow">
+
+    <link
+        rel="canonical"
+        href="https://444rnz.github.io/lawrence-portfolio/"
+    >
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Lawrence L. Labra | IT Support Portfolio">
+    <meta
+        property="og:description"
+        content="Information Systems graduate with practical experience in IT support, networking, computer maintenance, and troubleshooting."
+    >
+    <meta
+        property="og:url"
+        content="https://444rnz.github.io/lawrence-portfolio/"
+    >
+    <meta
+        property="og:image"
+        content="https://444rnz.github.io/lawrence-portfolio/image.png"
+    >
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <a href="#about" class="logo">
+            <span>Lawrence Labra</span>
+        </a>
+
+        <nav class="navbar">
+            <ul class="nav-links">
+                <li><a href="#about" class="nav-link active">About</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-actions">
+            <a
+                href="https://www.linkedin.com/in/lawrence-labra444/"
+                class="linkedin-btn"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <i class="fa-brands fa-linkedin"></i>
+                LinkedIn
+            </a>
+
+            <button
+                type="button"
+                class="theme-toggle"
+                id="theme-toggle"
+                aria-label="Switch to light mode"
+                title="Switch to light mode"
+            >
+                <i class="fa-solid fa-sun"></i>
+            </button>
+
+            <button
+                type="button"
+                class="menu-button"
+                id="menu-icon"
+                aria-label="Open menu"
+                aria-expanded="false"
+            >
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- About -->
+        <section class="about" id="about">
+            <div class="about-container">
+
+                <div class="profile-area">
+                    <img
+                        src="image.png"
+                        alt="Lawrence L. Labra"
+                        class="profile-image"
+                    >
+                </div>
+
+                <div class="info-box">
+                    <p class="intro-label">Hi, I'm</p>
+
+                    <h1>Lawrence L. Labra</h1>
+
+                    <h2>IT Support & Information Systems Graduate</h2>
+
+                    <p class="about-description">
+                        A motivated Information Systems graduate with hands-on experience
+                        in IT support, computer maintenance, connectivity troubleshooting,
+                        networking, RJ45 cable creation, and technical problem-solving.
+                        I am eager to learn new technologies and contribute to a professional team.
+                    </p>
+
+                    <div class="btn-group">
+                        <a
+                            href="Resume_Lawrence-Labra.pdf"
+                            class="btn primary-btn"
+                            download
+                        >
+                            <i class="fa-solid fa-download"></i>
+                            Download CV
+                        </a>
+
+                        <a href="#contact" class="btn secondary-btn">
+                            <i class="fa-solid fa-envelope"></i>
+                            Contact Me
+                        </a>
+                    </div>
+
+                    <div class="socials">
+                        <a
+                            href="mailto:labralawrence@gmail.com"
+                            aria-label="Email Lawrence Labra"
+                        >
+                            <i class="fa-solid fa-envelope"></i>
+                        </a>
+
+                        <a
+                            href="https://www.linkedin.com/in/lawrence-labra444/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="LinkedIn"
+                        >
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+
+                        <a
+                            href="tel:+639482136920"
+                            aria-label="Call Lawrence Labra"
+                        >
+                            <i class="fa-solid fa-phone"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience -->
+        <section class="experience" id="experience">
+            <div class="section-heading">
+                <span>Professional Background</span>
+                <h2>Experience</h2>
+                <p>Hands-on technical support experience in a school IT environment.</p>
+            </div>
+
+            <div class="experience-layout">
+                <article class="experience-card">
+                    <div class="experience-top">
+                        <div class="icon-box">
+                            <i class="fa-solid fa-screwdriver-wrench"></i>
+                        </div>
+
+                        <div>
+                            <h3>IT Support Intern</h3>
+                            <p class="company-name">Westhill International School</p>
+                        </div>
+                    </div>
+
+                    <div class="experience-meta">
+                        <span>
+                            <i class="fa-solid fa-location-dot"></i>
+                            Dasmariñas City, Cavite
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-calendar-days"></i>
+                            February 2026 – May 2026
+                        </span>
+                    </div>
+
+                    <ul class="experience-list">
+                        <li>
+                            Fixed campus internet connections, rerouted network cables,
+                            created RJ45 wires, and helped repair CCTV cameras.
+                        </li>
+
+                        <li>
+                            Repaired and maintained computers and printers used by
+                            teachers and classrooms.
+                        </li>
+
+                        <li>
+                            Assisted with technical troubleshooting to keep devices
+                            and connectivity working properly.
+                        </li>
+
+                        <li>
+                            Entered school data into Microsoft Excel and created
+                            Canva videos for school announcements.
+                        </li>
+                    </ul>
+                </article>
+
+                <div class="experience-visual" aria-hidden="true">
+                    <div class="visual-circle">
+                        <i class="fa-solid fa-server"></i>
+                        <h3>IT Support</h3>
+                        <p>Networks · Devices · Users</p>
+                    </div>
+
+                    <span class="floating-icon floating-one">
+                        <i class="fa-solid fa-wifi"></i>
+                    </span>
+
+                    <span class="floating-icon floating-two">
+                        <i class="fa-solid fa-laptop"></i>
+                    </span>
+
+                    <span class="floating-icon floating-three">
+                        <i class="fa-solid fa-network-wired"></i>
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills -->
+        <section class="skills" id="skills">
+            <div class="section-heading">
+                <span>Core Strengths</span>
+                <h2>Technical Skills</h2>
+                <p>Skills developed through academic work and IT support practice.</p>
+            </div>
+
+            <div class="skills-grid">
+                <article class="skill-card">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-desktop"></i>
+                    </div>
+                    <h3>IT Support</h3>
+                    <p>
+                        PC installation, troubleshooting, basic repairs,
+                        printer maintenance, and technical problem-solving.
+                    </p>
+                </article>
+
+                <article class="skill-card">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-network-wired"></i>
+                    </div>
+                    <h3>Networking</h3>
+                    <p>
+                        Connectivity troubleshooting, network cable management,
+                        RJ45 cable creation, and basic network setup.
+                    </p>
+                </article>
+
+                <article class="skill-card">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-users-gear"></i>
+                    </div>
+                    <h3>User Support</h3>
+                    <p>
+                        Helping users resolve technical concerns through clear
+                        communication, practical support, and patience.
+                    </p>
+                </article>
+
+                <article class="skill-card">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-file-excel"></i>
+                    </div>
+                    <h3>Data & Email</h3>
+                    <p>
+                        Microsoft Excel data entry, email management,
+                        documentation, and organized information handling.
+                    </p>
+                </article>
+
+                <article class="skill-card">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3>Cybersecurity</h3>
+                    <p>
+                        Basic cybersecurity knowledge from Cisco Networking Academy’s
+                        Introduction to Cybersecurity course.
+                    </p>
+                </article>
+
+                <article class="skill-card">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-video"></i>
+                    </div>
+                    <h3>Canva Content</h3>
+                    <p>
+                        Created visual content and videos for school announcements
+                        and communication materials.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Projects -->
+        <section class="projects" id="projects">
+            <div class="section-heading">
+                <span>Academic Highlights</span>
+                <h2>Projects & Education</h2>
+                <p>Academic work, achievements, and technical certification.</p>
+            </div>
+
+            <div class="projects-grid">
+                <article class="project-card project-dark">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </div>
+
+                    <p class="project-label">Capstone Project · 2026</p>
+
+                    <h3>Online Sales and Inventory System</h3>
+
+                    <p>
+                        Developed an Online Sales and Inventory System for GRM Drugstore
+                        as my Bachelor of Science in Information System capstone project.
+                    </p>
+
+                    <div class="tags">
+                        <span>Information Systems</span>
+                        <span>Inventory</span>
+                        <span>Sales</span>
+                    </div>
+                </article>
+
+                <article class="project-card project-silver">
+                    <div class="icon-box dark-icon">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+
+                    <p class="project-label label-dark">Education · 2022–2026</p>
+
+                    <h3>Bachelor of Science in Information System</h3>
+
+                    <p class="school-name">Kolehiyo ng Lungsod ng Dasmariñas</p>
+
+                    <p>
+                        Relevant coursework: Information Management, IT Infrastructure
+                        and Network Technologies, Database Systems, Web Systems,
+                        and Multimedia Systems.
+                    </p>
+
+                    <div class="achievement">
+                        <i class="fa-solid fa-award"></i>
+                        Dean’s Lister
+                    </div>
+                </article>
+
+                <article class="project-card project-gold">
+                    <div class="icon-box brown-icon">
+                        <i class="fa-solid fa-certificate"></i>
+                    </div>
+
+                    <p class="project-label label-dark">
+                        Certification · December 2024
+                    </p>
+
+                    <h3>Introduction to Cybersecurity</h3>
+
+                    <p class="school-name">Cisco Networking Academy</p>
+
+                    <p>
+                        Completed foundational cybersecurity training about security
+                        concepts, cyber threats, and safer technology practices.
+                    </p>
+
+                    <div class="achievement">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        Cisco Certificate
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section class="contact" id="contact">
+            <div class="section-heading">
+                <span>Get In Touch</span>
+                <h2>Contact Me</h2>
+                <p>
+                    I am open to entry-level IT support, technical support,
+                    networking, and information systems opportunities.
+                </p>
+            </div>
+
+            <div class="contact-layout">
+                <div class="contact-details">
+                    <a href="mailto:labralawrence@gmail.com" class="contact-item">
+                        <div class="icon-box">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div>
+                            <span>Email</span>
+                            <p>labralawrence@gmail.com</p>
+                        </div>
+                    </a>
+
+                    <a href="tel:+639482136920" class="contact-item">
+                        <div class="icon-box">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+                        <div>
+                            <span>Phone</span>
+                            <p>(+63) 948 213 6920</p>
+                        </div>
+                    </a>
+
+                    <a
+                        href="https://www.linkedin.com/in/lawrence-labra444/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="contact-item"
+                    >
+                        <div class="icon-box">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </div>
+                        <div>
+                            <span>LinkedIn</span>
+                            <p>linkedin.com/in/lawrence-labra444</p>
+                        </div>
+                    </a>
+
+                    <div class="contact-item">
+                        <div class="icon-box">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <div>
+                            <span>Location</span>
+                            <p>Dasmariñas, Cavite, Philippines</p>
+                        </div>
+                    </div>
+                </div>
+
+                <form
+                    class="contact-form"
+                    action="https://formsubmit.co/labralawrence@gmail.com"
+                    method="POST"
+                >
+                    <input
+                        type="hidden"
+                        name="_subject"
+                        value="New Message from Lawrence Labra Portfolio"
+                    >
+
+                    <input type="hidden" name="_captcha" value="false">
+
+                    <input
+                        type="hidden"
+                        name="_next"
+                        value="https://444rnz.github.io/lawrence-portfolio/"
+                    >
+
+                    <input
+                        type="text"
+                        name="_honey"
+                        class="hidden-input"
+                        tabindex="-1"
+                        autocomplete="off"
+                    >
+
+                    <div class="form-row">
+                        <div class="input-box">
+                            <label for="name">Your Name</label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                placeholder="Enter your name"
+                                required
+                            >
+                        </div>
+
+                        <div class="input-box">
+                            <label for="email">Your Email</label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your email"
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <div class="input-box">
+                        <label for="message">Message</label>
+                        <textarea
+                            id="message"
+                            name="message"
+                            rows="6"
+                            placeholder="Write your message here..."
+                            required
+                        ></textarea>
+                    </div>
+
+                    <button type="submit" class="btn primary-btn submit-btn">
+                        Send Message
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© <span id="year"></span> Lawrence L. Labra. All rights reserved.</p>
+
+        <a href="#about">
+            Back to top
+            <i class="fa-solid fa-arrow-up"></i>
+        </a>
+    </footer>
+
+    <!-- Cursor smoke effect -->
+    <div class="smoke-cursor" aria-hidden="true"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
