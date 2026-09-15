@@ -1,15 +1,15 @@
 :root {
     --black: #080808;
-    --dark: #151515;
+    --dark: #171717;
     --white: #ffffff;
     --gray: #666666;
     --light-gray: #f4f4f4;
-    --border: #e4e4e4;
+    --border: #e3e3e3;
     --gold: #ffd700;
-    --deep-gold: #b78b00;
-    --gold-light: #fff2a8;
-    --gold-gradient: linear-gradient(135deg, #ffe66d, #f0bb00);
-    --dark-gradient: linear-gradient(145deg, #1f1f1f, #050505);
+    --deep-gold: #b88e00;
+    --gold-light: #fff2a7;
+    --gold-gradient: linear-gradient(135deg, #ffe66d, #efb900);
+    --dark-gradient: linear-gradient(145deg, #202020, #050505);
     --shadow: 0 15px 42px rgba(0, 0, 0, 0.13);
     --radius: 1.5rem;
 }
@@ -761,6 +761,10 @@ a.contact-item:hover {
     box-shadow: var(--shadow);
 }
 
+.hidden-input {
+    display: none;
+}
+
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -809,15 +813,6 @@ a.contact-item:hover {
     border: none;
 }
 
-.form-message {
-    min-height: 1.25rem;
-    margin-top: 0.85rem;
-    color: var(--deep-gold);
-    font-size: 0.78rem;
-    font-weight: 600;
-    text-align: center;
-}
-
 /* Footer */
 
 .footer {
@@ -862,7 +857,7 @@ a.contact-item:hover {
     }
 }
 
-/* Mobile navigation and layout */
+/* Mobile */
 
 @media (max-width: 800px) {
     .header {
