@@ -6,14 +6,55 @@ document.addEventListener("DOMContentLoaded", () => {
     const navItems = document.querySelectorAll(".nav-link");
     const sections = document.querySelectorAll("main section");
     const year = document.getElementById("year");
+
+    const themeToggle = document.getElementById("theme-toggle");
+    const themeToggleIcon = themeToggle ? themeToggle.querySelector("i") : null;
+
     const smokeCursor = document.querySelector(".smoke-cursor");
 
-    // Set current year in footer.
+    // Footer year
     if (year) {
         year.textContent = new Date().getFullYear();
     }
 
-    // Close the mobile navigation menu.
+    // Dark / light mode
+    function setTheme(theme) {
+        const isLightMode = theme === "light";
+
+        document.body.classList.toggle("light-mode", isLightMode);
+
+        if (themeToggle && themeToggleIcon) {
+            themeToggleIcon.classList.toggle("fa-sun", !isLightMode);
+            themeToggleIcon.classList.toggle("fa-moon", isLightMode);
+
+            themeToggle.setAttribute(
+                "aria-label",
+                isLightMode ? "Switch to dark mode" : "Switch to light mode"
+            );
+
+            themeToggle.setAttribute(
+                "title",
+                isLightMode ? "Switch to dark mode" : "Switch to light mode"
+            );
+        }
+
+        localStorage.setItem("portfolio-theme", theme);
+    }
+
+    const savedTheme = localStorage.getItem("portfolio-theme") || "dark";
+    setTheme(savedTheme);
+
+    if (themeToggle) {
+        themeToggle.addEventListener("click", () => {
+            const nextTheme = document.body.classList.contains("light-mode")
+                ? "dark"
+                : "light";
+
+            setTheme(nextTheme);
+        });
+    }
+
+    // Mobile menu
     function closeMobileMenu() {
         if (!navLinks || !menuButton || !menuButtonIcon) {
             return;
@@ -28,22 +69,19 @@ document.addEventListener("DOMContentLoaded", () => {
         menuButtonIcon.classList.add("fa-bars-staggered");
     }
 
-    // Open and close mobile menu.
     if (menuButton && navLinks && menuButtonIcon) {
         menuButton.addEventListener("click", () => {
-            const menuIsOpen = navLinks.classList.toggle("active");
+            const isOpen = navLinks.classList.toggle("active");
 
-            menuButton.setAttribute("aria-expanded", String(menuIsOpen));
+            menuButton.setAttribute("aria-expanded", String(isOpen));
 
-            if (menuIsOpen) {
-                menuButton.setAttribute("aria-label", "Close navigation menu");
-                menuButtonIcon.classList.remove("fa-bars-staggered");
-                menuButtonIcon.classList.add("fa-xmark");
-            } else {
-                menuButton.setAttribute("aria-label", "Open navigation menu");
-                menuButtonIcon.classList.remove("fa-xmark");
-                menuButtonIcon.classList.add("fa-bars-staggered");
-            }
+            menuButtonIcon.classList.toggle("fa-bars-staggered", !isOpen);
+            menuButtonIcon.classList.toggle("fa-xmark", isOpen);
+
+            menuButton.setAttribute(
+                "aria-label",
+                isOpen ? "Close navigation menu" : "Open navigation menu"
+            );
         });
 
         navItems.forEach((navItem) => {
@@ -51,84 +89,131 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Shrink header slightly after scrolling.
+    // Header scroll appearance
     function updateHeaderStyle() {
-        if (!header) {
-            return;
-        }
-
-        if (window.scrollY > 40) {
-            header.classList.add("scrolled");
-        } else {
-            header.classList.remove("scrolled");
+        if (header) {
+            header.classList.toggle("scrolled", window.scrollY > 40);
         }
     }
 
-    // Highlight navigation link for visible section.
+    // Active navigation section
     function updateActiveNavigation() {
         let activeSection = "";
 
         sections.forEach((section) => {
-            const sectionTop = section.offsetTop - 170;
-            const sectionBottom = sectionTop + section.offsetHeight;
+            const top = section.offsetTop - 170;
+            const bottom = top + section.offsetHeight;
 
-            if (window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
+            if (window.scrollY >= top && window.scrollY < bottom) {
                 activeSection = section.id;
             }
         });
 
         navItems.forEach((navItem) => {
-            navItem.classList.remove("active");
-
-            if (navItem.getAttribute("href") === `#${activeSection}`) {
-                navItem.classList.add("active");
-            }
+            navItem.classList.toggle(
+                "active",
+                navItem.getAttribute("href") === `#${activeSection}`
+            );
         });
     }
 
-    // Smoky gold and silver pointer effect for desktop/laptop mouse users.
+    // Smoky mouse pointer effect
     const hasMousePointer = window.matchMedia(
         "(hover: hover) and (pointer: fine)"
     ).matches;
 
     if (smokeCursor && hasMousePointer) {
-        let lastSmokeTime = 0;
+        let lastParticleTime = 0;
+        let lastX = 0;
+        let lastY = 0;
+
+        function createSmoke(x, y, speed) {
+            const particle = document.createElement("span");
+            const size = Math.min(66, Math.max(30, 30 + speed * 0.55));
+
+            particle.className = "smoke-particle";
+
+            particle.style.left = `${x + (Math.random() - 0.5) * 20}px`;
+            particle.style.top = `${y + (Math.random() - 0.5) * 20}px`;
+
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+
+            particle.style.setProperty(
+                "--smoke-drift-x",
+                `${(Math.random() - 0.5) * 90}px`
+            );
+
+            document.body.appendChild(particle);
+
+            particle.addEventListener("animationend", () => {
+                particle.remove();
+            });
+        }
+
+        function createSpark(x, y) {
+            const spark = document.createElement("span");
+
+            spark.className = "smoke-spark";
+            spark.style.left = `${x}px`;
+            spark.style.top = `${y}px`;
+
+            spark.style.setProperty(
+                "--spark-x",
+                `${(Math.random() - 0.5) * 55}px`
+            );
+
+            spark.style.setProperty(
+                "--spark-y",
+                `${(Math.random() - 0.5) * 55}px`
+            );
+
+            document.body.appendChild(spark);
+
+            spark.addEventListener("animationend", () => {
+                spark.remove();
+            });
+        }
 
         window.addEventListener("mousemove", (event) => {
-            smokeCursor.style.left = `${event.clientX}px`;
-            smokeCursor.style.top = `${event.clientY}px`;
+            const x = event.clientX;
+            const y = event.clientY;
+
+            smokeCursor.style.left = `${x}px`;
+            smokeCursor.style.top = `${y}px`;
             smokeCursor.style.opacity = "1";
 
-            const currentTime = Date.now();
+            const movementSpeed = Math.hypot(x - lastX, y - lastY);
+            const currentTime = performance.now();
 
-            // Creates smoke particles without making the website too slow.
-            if (currentTime - lastSmokeTime > 45) {
-                const smokeParticle = document.createElement("span");
+            if (currentTime - lastParticleTime > 24) {
+                createSmoke(x, y, movementSpeed);
 
-                smokeParticle.className = "smoke-particle";
-                smokeParticle.style.left = `${event.clientX}px`;
-                smokeParticle.style.top = `${event.clientY}px`;
+                if (movementSpeed > 6) {
+                    createSmoke(x - 8, y - 8, movementSpeed);
+                }
 
-                const particleSize = Math.random() * 16 + 14;
-                smokeParticle.style.width = `${particleSize}px`;
-                smokeParticle.style.height = `${particleSize}px`;
+                if (Math.random() > 0.35) {
+                    createSpark(x, y);
+                }
 
-                document.body.appendChild(smokeParticle);
-
-                smokeParticle.addEventListener("animationend", () => {
-                    smokeParticle.remove();
-                });
-
-                lastSmokeTime = currentTime;
+                lastParticleTime = currentTime;
             }
+
+            lastX = x;
+            lastY = y;
         });
 
         document.addEventListener("mouseleave", () => {
             smokeCursor.style.opacity = "0";
         });
+
+        document.addEventListener("mouseenter", () => {
+            smokeCursor.style.opacity = "1";
+        });
     }
 
-    // Reset the mobile menu if screen becomes desktop size.
+    // Reset mobile menu on wider screens
     window.addEventListener("resize", () => {
         if (
             window.innerWidth > 800 &&
