@@ -6,8 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const navItems = document.querySelectorAll(".nav-link");
     const sections = document.querySelectorAll("main section");
     const year = document.getElementById("year");
+    const smokeCursor = document.querySelector(".smoke-cursor");
 
-    // Insert the current year in the footer.
+    // Set current year in footer.
     if (year) {
         year.textContent = new Date().getFullYear();
     }
@@ -27,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
         menuButtonIcon.classList.add("fa-bars-staggered");
     }
 
-    // Open and close the mobile menu.
+    // Open and close mobile menu.
     if (menuButton && navLinks && menuButtonIcon) {
         menuButton.addEventListener("click", () => {
             const menuIsOpen = navLinks.classList.toggle("active");
@@ -50,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Change header size once the visitor scrolls down.
+    // Shrink header slightly after scrolling.
     function updateHeaderStyle() {
         if (!header) {
             return;
@@ -63,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Highlight the navigation link for the visible section.
+    // Highlight navigation link for visible section.
     function updateActiveNavigation() {
         let activeSection = "";
 
@@ -85,7 +86,49 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Reset the mobile menu when screen changes to desktop size.
+    // Smoky gold and silver pointer effect for desktop/laptop mouse users.
+    const hasMousePointer = window.matchMedia(
+        "(hover: hover) and (pointer: fine)"
+    ).matches;
+
+    if (smokeCursor && hasMousePointer) {
+        let lastSmokeTime = 0;
+
+        window.addEventListener("mousemove", (event) => {
+            smokeCursor.style.left = `${event.clientX}px`;
+            smokeCursor.style.top = `${event.clientY}px`;
+            smokeCursor.style.opacity = "1";
+
+            const currentTime = Date.now();
+
+            // Creates smoke particles without making the website too slow.
+            if (currentTime - lastSmokeTime > 45) {
+                const smokeParticle = document.createElement("span");
+
+                smokeParticle.className = "smoke-particle";
+                smokeParticle.style.left = `${event.clientX}px`;
+                smokeParticle.style.top = `${event.clientY}px`;
+
+                const particleSize = Math.random() * 16 + 14;
+                smokeParticle.style.width = `${particleSize}px`;
+                smokeParticle.style.height = `${particleSize}px`;
+
+                document.body.appendChild(smokeParticle);
+
+                smokeParticle.addEventListener("animationend", () => {
+                    smokeParticle.remove();
+                });
+
+                lastSmokeTime = currentTime;
+            }
+        });
+
+        document.addEventListener("mouseleave", () => {
+            smokeCursor.style.opacity = "0";
+        });
+    }
+
+    // Reset the mobile menu if screen becomes desktop size.
     window.addEventListener("resize", () => {
         if (
             window.innerWidth > 800 &&
