@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://YOUR-GITHUB-USERNAME.github.io/lawrence-portfolio/sitemap.xml
+Sitemap: https://444rnz.github.io/lawrence-portfolio/sitemap.xml
